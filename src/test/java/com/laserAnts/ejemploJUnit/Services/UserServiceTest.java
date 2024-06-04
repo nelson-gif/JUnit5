@@ -28,8 +28,19 @@ public class UserServiceTest {
 		Assertions.assertEquals(userExpected.getId(), userReturned.getId());
 		
 		Mockito.verify(userRepository, Mockito.times(1)).creatUser(Mockito.anyInt(), Mockito.anyString());
+	}
+	
+	@Test
+	void getUserTest() {
+		User userExpected = new User(1, "Felipe");
+		Mockito.when(userRepository.getUser(Mockito.anyInt())).thenReturn(userExpected);
 		
+		final User actualUser = userService.getUser(1);
 		
+		Assertions.assertNotNull(actualUser);
+		Assertions.assertEquals(userExpected.getName(), actualUser.getName());
+		
+		Mockito.verify(userRepository, Mockito.times(1)).getUser(Mockito.anyInt());
 	}
 
 }
